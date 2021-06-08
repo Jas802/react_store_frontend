@@ -54,7 +54,7 @@ function LoginScreen({location, history}) {
           ></Form.Control>
         </Form.Group>
 
-        <Button type='submit' variant='priamry'>Sign In</Button>
+        <Button type='submit' variant='primary'>Sign In</Button>
       </Form>
       <Row className='py-3'>
         <Col>
