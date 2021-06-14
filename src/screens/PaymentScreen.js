@@ -5,7 +5,7 @@ import { register } from '../actions/userActions';
 import FormContainer from '../components/FormContainer';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { saveShippingAddress } from '../actions/cartActions';
-//import { savePaymentMethod } from '../actions/cartActions';
+import { savePaymentMethod } from '../actions/cartActions';
 
 
 function PaymentScreen({history}) {
@@ -22,7 +22,7 @@ function PaymentScreen({history}) {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    //dispatch(savePaymentMethod(paymentMethod))
+    dispatch(savePaymentMethod(paymentMethod))
     history.push('/placeorder')
   }
 
