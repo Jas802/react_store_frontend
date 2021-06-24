@@ -23,6 +23,10 @@ function PlaceOrderScreen({history}) {
     Number(cart.shippingPrice) +
     Number(cart.taxPrice)).toFixed(2)
 
+  if(cart.paymentMethod){
+    history.push('/payment')
+  }
+
   useEffect(() => {
     if(success){
       history.push(`/order/${order._id}`)
@@ -137,6 +141,10 @@ function PlaceOrderScreen({history}) {
                   <Col>Total:</Col>
                   <Col>${cart.totalPrice}</Col>
                 </Row>
+              </ListGroup.Item>
+
+              <ListGroup.Item>
+                {error && <Message variant='danger'>{error}</Message>}
               </ListGroup.Item>
 
               <ListGroup.Item>
