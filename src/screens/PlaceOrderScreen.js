@@ -4,8 +4,14 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message'
 import CheckoutSteps from '../components/CheckoutSteps';
+import { createOrder } from '../actions/orderActions'
 
-function PlaceOrderScreen() {
+function PlaceOrderScreen({history}) {
+  
+  const orderCreate = useSelector(state => state.orderCreate)
+  const {order, error, success} = orderCreate
+  
+  const dispatch = useDispatch()
   const cart = useSelector(state => state.cart)
 
   cart.itemsPrice = cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2)
@@ -17,9 +23,22 @@ function PlaceOrderScreen() {
     Number(cart.shippingPrice) +
     Number(cart.taxPrice)).toFixed(2)
 
+  useEffect(() => {
+    if(success){
+      history.push(`/order/${order._id}`)
+    }
+  }, [success, history])
+
   const placeOrder = () => {
-    console.log('Place Order');
-    
+    dispatch(createOrder({
+      orderItems: cart.cartItems,
+      shippingAddress: cart.shippingAddress,
+      paymentMethod: cart.paymentMethod,
+      itemsPrice: cart.itemsPrice,
+      shippingPrice: cart.shippingPrice,
+      taxPrice: cart.taxPrice,
+      totalPrice: cart.totalPrice
+    }))
   }
   return (
     <div>
